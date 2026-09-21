@@ -1,0 +1,19 @@
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+*.code-workspace
+
+# Dependências (caso venham a ser usadas em etapas futuras de build)
+node_modules/
+
+# Arquivos temporários / logs
+*.log
+npm-debug.log*
+
+# Build de produção (gerado na Etapa 4 - Otimização e deploy)
+dist/
+build/

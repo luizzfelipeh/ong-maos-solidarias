@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONG Mãos Solidárias</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>ONG Mãos Solidárias</h1>
+
+        <button class="hamburger" id="hamburger" type="button"
+            aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="main-nav">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav id="main-nav">
+            <a href="#/" data-route="/">Início</a>
+
+            <div class="dropdown">
+                <a href="#/projetos" class="dropdown-toggle" data-route="/projetos">Projetos</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#/projetos" data-route="/projetos">Reforço Escolar</a></li>
+                    <li><a href="#/projetos" data-route="/projetos">Campanha de Doações</a></li>
+                    <li><a href="#/projetos" data-route="/projetos">Programa de Voluntariado</a></li>
+                </ul>
+            </div>
+
+            <a href="#/cadastro" data-route="/cadastro">Cadastro</a>
+        </nav>
+    </header>
+
+    <!-- A SPA injeta o template da rota ativa aqui dentro -->
+    <main id="app">
+        <p>Carregando...</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 ONG Mãos Solidárias</p>
+    </footer>
+
+    <!-- Toast global (persiste entre trocas de rota) -->
+    <div class="toast" id="toast-sucesso" role="status" aria-live="polite">
+        <strong>Cadastro enviado!</strong> Em breve entraremos em contato.
+    </div>
+
+    <!-- Day.js: biblioteca leve (~2KB) para manipulação e formatação de datas.
+         Carregada via CDN, antes do módulo principal, para que window.dayjs
+         já exista quando templates.js precisar formatar uma data. -->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+
+    <script src="js/main.js" type="module"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!-- ==========================================================================
+     TEMPLATE: cadastro
+     Conteúdo original do antigo cadastro.html — agora injetado dinamicamente
+     dentro de <div id="app"> pelo sistema de rotas da SPA.
+     ========================================================================== -->
+
+<div class="alert alert--info">
+    <div>
+        <strong>Antes de começar</strong>
+        Todos os campos marcados são obrigatórios. Seus dados são usados
+        apenas para contato da ONG Mãos Solidárias.
+    </div>
+</div>
+
+<form id="form-cadastro">
+
+    <fieldset>
+        <legend>Dados Pessoais</legend>
+
+        <div class="form-row">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" name="nome" required>
+        </div>
+
+        <div class="form-row">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-row">
+            <label for="nascimento">Data de Nascimento:</label>
+            <input type="date" id="nascimento" name="nascimento" required>
+        </div>
+
+        <div class="form-row">
+            <label for="cpf">CPF:</label>
+            <input type="text" id="cpf" name="cpf"
+                pattern="[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}"
+                placeholder="000.000.000-00" required>
+        </div>
+
+        <div class="form-row">
+            <label for="telefone">Telefone:</label>
+            <input type="tel" id="telefone" name="telefone"
+                pattern="\([0-9]{2}\)\s[0-9]{5}-[0-9]{4}"
+                placeholder="(21) 99999-9999" required>
+        </div>
+
+    </fieldset>
+
+    <br>
+
+    <fieldset>
+        <legend>Endereço</legend>
+
+        <div class="form-row">
+            <label for="cep">CEP:</label>
+            <input type="text" id="cep" name="cep"
+                pattern="[0-9]{5}-[0-9]{3}"
+                placeholder="00000-000" required>
+        </div>
+
+        <div class="form-row">
+            <label for="endereco">Endereço:</label>
+            <input type="text" id="endereco" name="endereco" required>
+        </div>
+
+        <div class="form-row">
+            <label for="cidade">Cidade:</label>
+            <input type="text" id="cidade" name="cidade" required>
+        </div>
+
+        <div class="form-row">
+            <label for="estado">Estado:</label>
+            <input type="text" id="estado" name="estado" required>
+        </div>
+
+    </fieldset>
+
+    <br>
+
+    <input type="submit" value="Cadastrar">
+
+</form>

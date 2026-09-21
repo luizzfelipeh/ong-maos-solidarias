@@ -1,0 +1,88 @@
+<!-- ==========================================================================
+     TEMPLATE: projetos
+     Conteúdo original do antigo projetos.html — agora injetado dinamicamente
+     dentro de <div id="app"> pelo sistema de rotas da SPA.
+     ========================================================================== -->
+
+<section>
+    <h2>Nossos Projetos</h2>
+
+    <p>
+        Conheça algumas das iniciativas desenvolvidas pela ONG Mãos
+        Solidárias para apoiar famílias e comunidades em situação de
+        vulnerabilidade social.
+    </p>
+</section>
+
+<div class="container">
+    <div class="grid">
+
+        <article class="card" id="reforco-escolar">
+            <span class="badge badge--primary">Educação</span>
+            <h3>Reforço Escolar</h3>
+
+            <p>
+                Projeto voltado para crianças e adolescentes, oferecendo apoio
+                educacional e acompanhamento escolar.
+            </p>
+
+            <button type="button" class="modal-trigger" data-modal="modal-reforco">Saiba mais</button>
+        </article>
+
+        <article class="card" id="campanha-doacoes">
+            <span class="badge badge--secondary">Doação</span>
+            <h3>Campanha de Doações</h3>
+
+            <p>
+                Arrecadação de alimentos, roupas e materiais de higiene para
+                distribuição às famílias cadastradas na instituição.
+            </p>
+
+            <button type="button" class="modal-trigger" data-modal="modal-doacoes">Saiba mais</button>
+        </article>
+
+        <article class="card" id="programa-voluntariado">
+            <span class="badge badge--neutral">Voluntariado</span>
+            <h3>Programa de Voluntariado</h3>
+
+            <p>
+                Os voluntários podem atuar em eventos, campanhas solidárias e
+                atividades de apoio à comunidade.
+            </p>
+
+            <ul>
+                <li>Organização de eventos</li>
+                <li>Distribuição de doações</li>
+                <li>Apoio em atividades educacionais</li>
+            </ul>
+        </article>
+
+    </div>
+</div>
+
+<!-- Modais de detalhamento dos projetos -->
+<div class="modal-overlay" id="modal-reforco">
+    <div class="modal" role="dialog" aria-labelledby="modal-reforco-title" aria-modal="true">
+        <button type="button" class="modal-close" data-close-modal aria-label="Fechar">&times;</button>
+        <h3 id="modal-reforco-title">Reforço Escolar</h3>
+        <p>
+            Atendimento gratuito para crianças e adolescentes em situação de
+            vulnerabilidade, com aulas de reforço em português e matemática,
+            acompanhamento pedagógico e apoio psicossocial.
+        </p>
+        <span class="badge badge--primary">Vagas abertas</span>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal-doacoes">
+    <div class="modal" role="dialog" aria-labelledby="modal-doacoes-title" aria-modal="true">
+        <button type="button" class="modal-close" data-close-modal aria-label="Fechar">&times;</button>
+        <h3 id="modal-doacoes-title">Campanha de Doações</h3>
+        <p>
+            Pontos de coleta espalhados pela cidade recebem alimentos não
+            perecíveis, roupas em bom estado e itens de higiene, distribuídos
+            mensalmente às famílias cadastradas na ONG.
+        </p>
+        <span class="badge badge--secondary">Campanha ativa</span>
+    </div>
+</div>
