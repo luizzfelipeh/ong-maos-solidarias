@@ -11,6 +11,11 @@
 
 <body>
 
+    <!-- Skip link: permite que usuários de teclado pulem direto para o
+         conteúdo principal, sem precisar tabular por todo o menu a cada
+         página (WCAG 2.4.1 - Bypass Blocks) -->
+    <a href="#app" class="skip-link">Pular para o conteúdo principal</a>
+
     <header>
         <h1>ONG Mãos Solidárias</h1>
 
@@ -21,11 +26,12 @@
             <span></span>
         </button>
 
-        <nav id="main-nav">
+        <nav id="main-nav" aria-label="Navegação principal">
             <a href="#/" data-route="/">Início</a>
 
             <div class="dropdown">
-                <a href="#/projetos" class="dropdown-toggle" data-route="/projetos">Projetos</a>
+                <a href="#/projetos" class="dropdown-toggle" data-route="/projetos"
+                    aria-haspopup="true" aria-expanded="false">Projetos</a>
                 <ul class="dropdown-menu">
                     <li><a href="#/projetos" data-route="/projetos">Reforço Escolar</a></li>
                     <li><a href="#/projetos" data-route="/projetos">Campanha de Doações</a></li>
@@ -37,8 +43,10 @@
         </nav>
     </header>
 
-    <!-- A SPA injeta o template da rota ativa aqui dentro -->
-    <main id="app">
+    <!-- A SPA injeta o template da rota ativa aqui dentro.
+         tabindex="-1" permite que o skip link mova o foco para cá
+         programaticamente, embora <main> não seja focável por padrão -->
+    <main id="app" tabindex="-1">
         <p>Carregando...</p>
     </main>
 
@@ -47,7 +55,7 @@
     </footer>
 
     <!-- Toast global (persiste entre trocas de rota) -->
-    <div class="toast" id="toast-sucesso" role="status" aria-live="polite">
+    <div class="toast" id="toast-sucesso" role="status" aria-live="polite" aria-atomic="true">
         <strong>Cadastro enviado!</strong> Em breve entraremos em contato.
     </div>
 

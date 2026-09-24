@@ -21,8 +21,34 @@ import { renderRoute } from './router.js';
 
 export function initGlobalUI() {
   initMenu();
+  initDropdownAria();
   initModalEvents();
   initFormEvents();
+}
+
+/* --------------------------------------------------------------------
+   DROPDOWN — sincroniza aria-expanded com o estado visual real.
+   O dropdown abre por CSS (:hover / :focus-within), mas leitores de tela
+   dependem do atributo aria-expanded para anunciar corretamente se o
+   submenu está aberto ou fechado — por isso replicamos os mesmos gatilhos
+   (mouseenter/mouseleave e focusin/focusout) em JavaScript.
+   -------------------------------------------------------------------- */
+function initDropdownAria() {
+  const dropdown = document.querySelector('.dropdown');
+  const toggle = dropdown ? dropdown.querySelector('.dropdown-toggle') : null;
+
+  if (!dropdown || !toggle) return;
+
+  const abrir = function () { toggle.setAttribute('aria-expanded', 'true'); };
+  const fechar = function () { toggle.setAttribute('aria-expanded', 'false'); };
+
+  dropdown.addEventListener('mouseenter', abrir);
+  dropdown.addEventListener('mouseleave', fechar);
+  dropdown.addEventListener('focusin', abrir);
+  dropdown.addEventListener('focusout', function (event) {
+    // só fecha se o novo foco saiu de todo o bloco do dropdown
+    if (!dropdown.contains(event.relatedTarget)) fechar();
+  });
 }
 
 /* --------------------------------------------------------------------

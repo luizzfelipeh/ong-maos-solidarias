@@ -26,10 +26,19 @@ function getCurrentRoute() {
 
 /**
  * Marca visualmente o link de navegação correspondente à rota ativa.
+ * aria-current="page" (WCAG 4.1.2) informa tecnologias assistivas sobre
+ * qual item do menu representa a página atual — não é algo que dá para
+ * inferir só pela cor/sublinhado usados visualmente.
  */
 function setActiveLink(route) {
   document.querySelectorAll('nav a[data-route]').forEach(function (link) {
-    link.classList.toggle('active', link.dataset.route === route);
+    const isActive = link.dataset.route === route;
+    link.classList.toggle('active', isActive);
+    if (isActive) {
+      link.setAttribute('aria-current', 'page');
+    } else {
+      link.removeAttribute('aria-current');
+    }
   });
 }
 
@@ -49,6 +58,11 @@ export function renderRoute() {
   APP_ROOT.innerHTML = html;
   setActiveLink(route);
   window.scrollTo({ top: 0, behavior: 'instant' });
+
+  // Move o foco para o início do novo conteúdo: numa SPA, o navegador não
+  // faz isso sozinho (diferente de uma navegação real entre páginas), o
+  // que deixa usuários de leitor de tela "perdidos" após trocar de rota
+  APP_ROOT.focus({ preventScroll: true });
 }
 
 /**

@@ -662,3 +662,28 @@ footer {
 }
 
 .cadastro-remover:hover { color: #C62828; }
+
+/* ==========================================================================
+   ACESSIBILIDADE — skip link
+   ========================================================================== */
+
+/* Fica fora da tela até receber foco via teclado (Tab). Usuários de mouse
+   nunca o veem; usuários de teclado/leitor de tela conseguem pular direto
+   para o conteúdo principal, sem precisar tabular por todo o menu antes. */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--space-3);
+  background-color: var(--color-primary-dark);
+  color: var(--color-white);
+  padding: var(--space-2) var(--space-4);
+  border-radius: 0 0 8px 8px;
+  z-index: 1000;
+  text-decoration: none;
+  font-weight: var(--font-weight-bold);
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
