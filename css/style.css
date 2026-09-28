@@ -15,6 +15,7 @@
   --color-primary: #2E7D32;
   --color-primary-dark: #1B5E20;
   --color-primary-light: #66BB6A;
+  --color-primary-tint: #E8F5E9; /* tom bem claro, só para fundos (badges/tags) */
 
   /* Secundárias (laranja de ação/destaque) */
   --color-secondary: #F5A623;
@@ -442,10 +443,13 @@ input[type="submit"] {
   transition: background-color 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease, opacity 0.2s ease;
 }
 
-/* :hover — leve elevação e escurecimento, comunica "isto é clicável" */
+/* :hover — leve elevação e escurecimento, comunica "isto é clicável".
+   Texto continua escuro (neutral-900) em vez de branco: branco sobre
+   secondary-dark dava só 3.14:1, abaixo do mínimo AA de 4.5:1 para texto
+   normal. Mantendo o texto escuro, o contraste sobe para 5.12:1. */
 input[type="submit"]:hover {
   background-color: var(--color-secondary-dark);
-  color: var(--color-white);
+  color: var(--color-neutral-900);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
 }
@@ -501,7 +505,10 @@ footer {
   margin-bottom: var(--space-2);
 }
 
-.badge--primary   { background-color: var(--color-primary-light); color: var(--color-primary-dark); }
+/* badge--primary: fundo trocado de primary-light para primary-tint (mais
+   claro ainda). primary-dark sobre primary-light dava só 3.33:1, abaixo
+   do AA de 4.5:1; sobre primary-tint sobe para 7:1 */
+.badge--primary   { background-color: var(--color-primary-tint); color: var(--color-primary-dark); }
 .badge--secondary { background-color: var(--color-secondary); color: var(--color-neutral-900); }
 .badge--neutral   { background-color: var(--color-neutral-200); color: var(--color-neutral-700); }
 
@@ -619,7 +626,10 @@ footer {
   background: none;
   border: none;
   font-size: var(--font-size-lg);
-  color: var(--color-neutral-500);
+  /* neutral-700 em vez de neutral-500: o cinza mais claro dava só 2.68:1
+     sobre fundo branco, abaixo do mínimo AA de 4.5:1. neutral-700 sobe
+     para 7.46:1 */
+  color: var(--color-neutral-700);
   cursor: pointer;
   line-height: 1;
 }
@@ -664,7 +674,8 @@ footer {
 .cadastro-remover {
   background: none;
   border: none;
-  color: var(--color-neutral-500);
+  /* mesma correção do .modal-close: neutral-700 em vez de neutral-500 */
+  color: var(--color-neutral-700);
   font-size: var(--font-size-lg);
   line-height: 1;
   cursor: pointer;
