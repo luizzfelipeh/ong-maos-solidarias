@@ -15,6 +15,7 @@
   --color-primary: #2E7D32;
   --color-primary-dark: #1B5E20;
   --color-primary-light: #66BB6A;
+  --color-primary-tint: #E8F5E9; /* tom bem claro, só para fundos (badges/tags) */
 
   /* Secundárias (laranja de ação/destaque) */
   --color-secondary: #F5A623;
@@ -77,6 +78,17 @@
    ========================================================================== */
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Imagens nunca ultrapassam a largura do contêiner pai, e mantêm a
+   proporção original (height: auto). Isso evita, por exemplo, que a
+   imagem de 800px de largura "estoure" visualmente em telas estreitas
+   — o navegador ainda baixa o arquivo original, mas pelo menos não o
+   exibe maior do que o necessário. */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
 body {
   font-family: var(--font-family-base);
@@ -230,8 +242,18 @@ nav a {
   padding: var(--space-1) var(--space-2);
 }
 
-nav a:hover,
-nav a:focus-visible { color: var(--color-secondary); }
+nav a:hover { color: var(--color-secondary); }
+
+/* Indicador de foco visível (WCAG 2.4.7): só mudar a cor do texto não é
+   suficiente — usuários com baixa visão ou daltonismo podem não perceber
+   a diferença. Um contorno bem contrastante deixa claro, sem ambiguidade,
+   qual elemento está com o foco do teclado no momento. */
+nav a:focus-visible {
+  color: var(--color-secondary);
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
 
 nav a.active {
   color: var(--color-secondary);
@@ -432,10 +454,13 @@ input[type="submit"] {
   transition: background-color 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease, opacity 0.2s ease;
 }
 
-/* :hover — leve elevação e escurecimento, comunica "isto é clicável" */
+/* :hover — leve elevação e escurecimento, comunica "isto é clicável".
+   Texto continua escuro (neutral-900) em vez de branco: branco sobre
+   secondary-dark dava só 3.14:1, abaixo do mínimo AA de 4.5:1 para texto
+   normal. Mantendo o texto escuro, o contraste sobe para 5.12:1. */
 input[type="submit"]:hover {
   background-color: var(--color-secondary-dark);
-  color: var(--color-white);
+  color: var(--color-neutral-900);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
 }
@@ -491,7 +516,10 @@ footer {
   margin-bottom: var(--space-2);
 }
 
-.badge--primary   { background-color: var(--color-primary-light); color: var(--color-primary-dark); }
+/* badge--primary: fundo trocado de primary-light para primary-tint (mais
+   claro ainda). primary-dark sobre primary-light dava só 3.33:1, abaixo
+   do AA de 4.5:1; sobre primary-tint sobe para 7:1 */
+.badge--primary   { background-color: var(--color-primary-tint); color: var(--color-primary-dark); }
 .badge--secondary { background-color: var(--color-secondary); color: var(--color-neutral-900); }
 .badge--neutral   { background-color: var(--color-neutral-200); color: var(--color-neutral-700); }
 
@@ -609,7 +637,10 @@ footer {
   background: none;
   border: none;
   font-size: var(--font-size-lg);
-  color: var(--color-neutral-500);
+  /* neutral-700 em vez de neutral-500: o cinza mais claro dava só 2.68:1
+     sobre fundo branco, abaixo do mínimo AA de 4.5:1. neutral-700 sobe
+     para 7.46:1 */
+  color: var(--color-neutral-700);
   cursor: pointer;
   line-height: 1;
 }
@@ -654,7 +685,8 @@ footer {
 .cadastro-remover {
   background: none;
   border: none;
-  color: var(--color-neutral-500);
+  /* mesma correção do .modal-close: neutral-700 em vez de neutral-500 */
+  color: var(--color-neutral-700);
   font-size: var(--font-size-lg);
   line-height: 1;
   cursor: pointer;
@@ -662,3 +694,28 @@ footer {
 }
 
 .cadastro-remover:hover { color: #C62828; }
+
+/* ==========================================================================
+   ACESSIBILIDADE — skip link
+   ========================================================================== */
+
+/* Fica fora da tela até receber foco via teclado (Tab). Usuários de mouse
+   nunca o veem; usuários de teclado/leitor de tela conseguem pular direto
+   para o conteúdo principal, sem precisar tabular por todo o menu antes. */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--space-3);
+  background-color: var(--color-primary-dark);
+  color: var(--color-white);
+  padding: var(--space-2) var(--space-4);
+  border-radius: 0 0 8px 8px;
+  z-index: 1000;
+  text-decoration: none;
+  font-weight: var(--font-weight-bold);
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}

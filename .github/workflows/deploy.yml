@@ -1,0 +1,52 @@
+name: Deploy para o GitHub Pages
+
+# Roda automaticamente a cada push na branch main — a branch que, na
+# nossa estratégia GitFlow, representa sempre a versão estável/publicável
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # também permite disparar manualmente pela aba Actions
+
+# Permissões mínimas necessárias para publicar no GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar o Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependências (Vite)
+        run: npm install
+
+      - name: Gerar a build de produção
+        run: npm run build
+
+      - name: Preparar o artefato para o Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
