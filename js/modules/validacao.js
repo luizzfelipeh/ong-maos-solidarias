@@ -58,18 +58,35 @@ const validators = {
 /**
  * Exibe (ou atualiza) a mensagem de erro logo após o campo, e marca o
  * input com a classe de estado inválido.
+ *
+ * Além do estilo visual (que já existia), agora vincula o erro ao campo
+ * via ARIA:
+ *   - aria-invalid="true": informa tecnologias assistivas que o valor
+ *     atual não é válido (WCAG 3.3.1 - Error Identification);
+ *   - aria-describedby apontando para o id da mensagem: faz o leitor de
+ *     tela ler a mensagem de erro logo depois do rótulo/valor do campo,
+ *     e não só quem consegue VER o texto vermelho abaixo do input;
+ *   - role="alert" no próprio <span>: anuncia a mensagem imediatamente,
+ *     de forma assíncrona, no momento em que ela é inserida no DOM.
  */
 function exibirErro(input, mensagem) {
   input.classList.remove('input-valido');
   input.classList.add('input-invalido');
+  input.setAttribute('aria-invalid', 'true');
+
+  const idErro = input.id + '-erro';
 
   let erroEl = input.nextElementSibling;
   if (!erroEl || !erroEl.classList.contains('field-error')) {
     erroEl = document.createElement('span');
     erroEl.className = 'field-error';
+    erroEl.id = idErro;
+    erroEl.setAttribute('role', 'alert');
     input.insertAdjacentElement('afterend', erroEl);
   }
   erroEl.textContent = mensagem;
+
+  input.setAttribute('aria-describedby', idErro);
 }
 
 /**
@@ -78,6 +95,8 @@ function exibirErro(input, mensagem) {
 function limparErro(input) {
   input.classList.remove('input-invalido');
   input.classList.add('input-valido');
+  input.setAttribute('aria-invalid', 'false');
+  input.removeAttribute('aria-describedby');
 
   const erroEl = input.nextElementSibling;
   if (erroEl && erroEl.classList.contains('field-error')) {
