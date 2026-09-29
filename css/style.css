@@ -79,6 +79,17 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Imagens nunca ultrapassam a largura do contêiner pai, e mantêm a
+   proporção original (height: auto). Isso evita, por exemplo, que a
+   imagem de 800px de largura "estoure" visualmente em telas estreitas
+   — o navegador ainda baixa o arquivo original, mas pelo menos não o
+   exibe maior do que o necessário. */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 body {
   font-family: var(--font-family-base);
   font-size: var(--font-size-base);

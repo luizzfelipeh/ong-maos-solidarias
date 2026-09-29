@@ -1,0 +1,14 @@
+{
+  "name": "ong-maos-solidarias",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Plataforma web (SPA) para a ONG Mãos Solidárias — projeto acadêmico de Desenvolvimento Front-end.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}

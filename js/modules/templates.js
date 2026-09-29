@@ -99,7 +99,11 @@ function buildProjetosView() {
 const homeTemplate = `
     <section>
         <h2>Quem Somos</h2>
-        <img src="imagens/ong.jpg" alt="Voluntários participando de ação social">
+        <picture>
+            <source srcset="imagens/ong.webp" type="image/webp">
+            <img src="imagens/ong.jpg" alt="Voluntários participando de ação social"
+                width="800" height="533" fetchpriority="high">
+        </picture>
         <p>
             A ONG Mãos Solidárias promove ações sociais destinadas ao apoio de
             famílias em situação de vulnerabilidade social.
